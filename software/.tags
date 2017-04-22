@@ -4,6 +4,8 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+BAUD	.\uart.h	16;"	d
+MYUBRR	.\uart.h	17;"	d
 SCL_CLOCK	.\i2c.h	17;"	d
 _ADC_H	.\adc.h	10;"	d
 _I2C_H	.\i2c.h	10;"	d
@@ -11,6 +13,7 @@ _INA219_H	.\ina219.h	10;"	d
 _MCP4933_H	.\mcp4933.h	10;"	d
 _MYDEFS_H	.\mydefs.h	10;"	d
 _UART_H	.\uart.h	10;"	d
+adcRead	.\adc.c	/^uint8_t adcRead(uint8_t adcx)$/;"	f
 i2cReadAck	.\i2c.c	/^uint8_t i2cReadAck(void)$/;"	f
 i2cReadNak	.\i2c.c	/^uint8_t i2cReadNak(void)$/;"	f
 i2cRepStart	.\i2c.c	/^uint8_t i2cRepStart(uint8_t addr)$/;"	f
@@ -20,3 +23,6 @@ i2cStop	.\i2c.c	/^void i2cStop(void)$/;"	f
 i2cWrite	.\i2c.c	/^uint8_t i2cWrite(uint8_t data)$/;"	f
 i2c_init	.\i2c.c	/^void i2c_init(void)$/;"	f
 main	.\PSU_CV_CC.c	/^int main(void)$/;"	f
+uartInit	.\uart.c	/^void uartInit(uint8_t ubrr)$/;"	f
+uartReceive	.\uart.c	/^uint8_t uartReceive(void)$/;"	f
+uartTransmit	.\uart.c	/^void uartTransmit(uint8_t data)$/;"	f

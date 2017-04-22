@@ -9,13 +9,20 @@
 #include adc.h
 
 /*!
-* @brief A description of function
-* @param[in] a Description of a
-* @param[in] b Description of b
-* @return int8_t
+* @brief Read from ADC pin x
+* @param    adcx specifies ADC pin number
+* @return   measured value
 */
-//int8_t
-//max (int8_t /*a*/, int8_t /*b*/)
-//{
-//  return ((a > b) ? a : b);
-//}
+uint8_t adcRead(uint8_t adcx)
+{
+    // Select ADC pin
+    ADMUX &= 0xF0;
+    ADMUX |= adcx;
+    // Start conversion
+    ADCSRA |= 1<<ADSC;
+    // Wait until conversion complete
+    while ( (ADCSRA & (1<<ADSC)));
+
+    //TODO:: check if "ADC" instead of merging 2 8bit registers ADCL and ADCH
+    return ADC;
+}
