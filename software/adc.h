@@ -19,4 +19,4 @@ uint16_t adcRead(uint8_t adcx);
 }
 #endif
 
-#enfig /* _ADC_H */
+#endif /* _ADC_H */

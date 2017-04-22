@@ -19,4 +19,4 @@ extern "C" {
 }
 #endif
 
-#enfig /* _INA219_H */
+#endif /* _INA219_H */

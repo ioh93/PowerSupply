@@ -19,4 +19,4 @@ extern "C" {
 }
 #endif
 
-#enfig /* _MYDEFS_H */
+#endif /* _MYDEFS_H */
