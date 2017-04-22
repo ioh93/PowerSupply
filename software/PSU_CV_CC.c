@@ -1,13 +1,12 @@
-/*
- * PSU_CV_CC.c
- *
- * Created: 2017-04-22 09:36:33
- *  Author: Andrzej
- */ 
-
+/** @file PSU_CV_CC.c
+*
+* @brief This is the main file
+* @par
+* Copyright 2017 ioh93
+* \m/
+*/
 
 #include <avr/io.h>
-
 #include "mydefs.h"
 #include "adc.h"
 #include "i2c.h"
@@ -19,6 +18,6 @@ int main(void)
 {
     while(1)
     {
-        //TODO:: Please write your application code 
+        //TODO:: Please write your application code
     }
 }
