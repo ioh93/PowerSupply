@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-//int8_t max (int8_t a, int8_t b); <- here insert your defs ans stuffs
+uint16_t adcRead(uint8_t adcx);
 
 #ifdef __cplusplus
 }
