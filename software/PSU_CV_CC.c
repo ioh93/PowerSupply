@@ -17,7 +17,8 @@
 
 int main(void)
 {
-	ll var;
+	//test change 
+	ll test_variable;
     while(1)
     {
         //TODO:: Please write your application code 
