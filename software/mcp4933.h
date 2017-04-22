@@ -19,4 +19,4 @@ extern "C" {
 }
 #endif
 
-#enfig /* _MCP4933_H */
+#endif /* _MCP4933_H */

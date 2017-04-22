@@ -24,4 +24,4 @@ uint8_t uartReceive(void);
 }
 #endif
 
-#enfig /* _UART_H */
+#endif /* _UART_H */

@@ -32,4 +32,4 @@ uint8_t i2cReadNak(void);
 }
 #endif
 
-#enfig /* _I2C_H */
+#endif /* _I2C_H */
