@@ -16,6 +16,11 @@
 
 int main(void)
 {
+	// TODO:: testing, to be removed
+	i2cInit();
+	uartInit(BAUD);
+	adcRead(adc_pin_0);
+	//adc_pin_t pins;
     while(1)
     {
         //TODO:: Please write your application code

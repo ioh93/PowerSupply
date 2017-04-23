@@ -6,7 +6,8 @@
 * \m/
 */
 
-#include ina219.h
+#include <avr/io.h>
+#include "ina219.h"
 
 /*!
 * @brief A description of function

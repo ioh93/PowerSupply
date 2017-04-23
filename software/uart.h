@@ -14,10 +14,27 @@ extern "C" {
 #endif
 
 #define BAUD 9600
-#define MYUBRR F_CPU/16/BAUD-1
+#define MYUBRR ((F_CPU/(16*BAUD))-1)
 
-uint8_t uartInit(uint8_t baudrate);
-uint8_t uartTransmit(uint8_t data);
+/*!
+* @brief UART initialisation
+* @param[in] ubrr Value to set in UBRRn register, that determines baud rate.
+*                 Macro defined in uart.h
+* @return null
+*/
+void uartInit(uint16_t baudrate);
+
+/*!
+* @brief UART basic transmit function
+* @param[in] data Data to be transmitted
+* @return null
+*/
+void uartTransmit(uint8_t data);
+
+/*!
+* @brief UART basic recieve function
+* @return uint8_t
+*/
 uint8_t uartReceive(void);
 
 #ifdef __cplusplus

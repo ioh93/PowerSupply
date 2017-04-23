@@ -6,25 +6,21 @@
 * \m/
 */
 
-#include i2c.h
+#include <avr/io.h>
+#include <compat/twi.h>
+#include "i2c.h"
 
-/*!
-* @brief Initialize I2C interface. Need to be called only once.
-* @param    void
-* @return   none
-*/
-void i2c_init(void)
+// Initializes I2C bus
+void i2cInit(void)
 {
     // initialize TWI clock
     TWBR = ((F_CPU/SCL_CLOCK)-16)/2;
     TWSR = 0;
+
+    //TODO:: fix too large integer warning
 }
 
-/*!
-* @brief Stops transfer and releases the bus
-* @param    void
-* @return   none
-*/
+// Issues stop condition
 void i2cStop(void)
 {
     // send stop condition
@@ -33,16 +29,12 @@ void i2cStop(void)
     while(TWCR & (1<<TWSTO));
 }
 
-/*!
-* @brief Issues a start condidtion and sends address and transfer direction.
-* @param    addr Address and transfer direction of I2C device
-* @retval   0 device accesible
-* @retval   1 device unaccessible
-*/uint8_t i2cStart(uint8_t addr)
+// Issues a start condition
+uint8_t i2cStart(uint8_t addr)
 {
     uint8_t   twst;
     // send START condition
-    uint8_t i2cStart(uint8_t addr)
+    uint8_t i2cStart(uint8_t addr);
     TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
     // wait until transmission completed
     while(!(TWCR & (1<<TWINT)));
@@ -50,7 +42,7 @@ void i2cStop(void)
     twst = TW_STATUS & 0xF8;
     if ( (twst != TW_START) && (twst != TW_REP_START)) return 1;
     // send device address
-    TWDR = address;
+    TWDR = addr;
     TWCR = (1<<TWINT) | (1<<TWEN);
     // wail until transmission completed and ACK/NACK has been received
     while(!(TWCR & (1<<TWINT)));
@@ -61,24 +53,16 @@ void i2cStop(void)
     return 0;
 }
 
-/*!
-* @brief Issues a repeated start condition and send address
-* @param    addr Address and transfer direction of I2C device
-* @retval   0 device accesible
-* @retval   1 device unaccessible
-*/
+// Issues a repeated start condition and sends address
 uint8_t i2cRepStart(uint8_t addr)
 {
     return i2cStart(addr);
 }
 
-/*!
-* @brief Issues start condition, uses ack polling to wait until device ready
-* @param    addr Addres and transfer direction of I2C device
-* @return   none
-*/
+// Issues a start condition, uses ack polling to wait until device ready
 void i2cStartWait(uint8_t addr)
 {
+	uint8_t twst;
     while ( 1 )
     {
 	    // send START condition
@@ -89,7 +73,7 @@ void i2cStartWait(uint8_t addr)
     	twst = TW_STATUS & 0xF8;
     	if ( (twst != TW_START) && (twst != TW_REP_START)) continue;
     	// send device address
-    	TWDR = address;
+    	TWDR = addr;
     	TWCR = (1<<TWINT) | (1<<TWEN);
     	// wail until transmission completed
     	while(!(TWCR & (1<<TWINT)));
@@ -98,9 +82,9 @@ void i2cStartWait(uint8_t addr)
     	if ( (twst == TW_MT_SLA_NACK )||(twst ==TW_MR_DATA_NACK) )
     	{
     	    // device busy, send stop condition to terminate write operation
-	        TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO
+	        TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
 	        // wait until stop condition is executed and bus released
-	        while(TWCR & (1<<TWSTO
+	        while(TWCR & (1<<TWSTO));
     	    continue;
     	}
     	//if( twst != TW_MT_SLA_ACK) return 1;
@@ -108,12 +92,7 @@ void i2cStartWait(uint8_t addr)
      }
 }
 
-/*!
-* @brief Send one byte to I2C device
-* @param    data Byte (addres or data) to be sent
-* @retval   0 write successfull
-* @retval   1 write failed
-*/
+// Sends one byte to I2C device
 uint8_t i2cWrite(uint8_t data)
 {
     uint8_t   twst;
@@ -128,10 +107,7 @@ uint8_t i2cWrite(uint8_t data)
     return 0;
 }
 
-/*!
-* @brief Read one byte from I2C device, request more data
-* @return   byte read
-*/
+// Reads one byte from I2C device, requests more data
 uint8_t i2cReadAck(void)
 {
     TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
@@ -140,10 +116,7 @@ uint8_t i2cReadAck(void)
     return TWDR;
 }
 
-/*!
-* @brief Read one byte from I2C device, issue stop signal
-* @return   byte read
-*/
+// Reads one byte from I2C device, issues stop signal
 uint8_t i2cReadNak(void)
 {
     TWCR = (1<<TWINT) | (1<<TWEN);
@@ -151,3 +124,6 @@ uint8_t i2cReadNak(void)
 
     return TWDR;
 }
+
+/* TODO:: refactoring - needs to be compliatn with coding standard
+          'continue' and 'break' keywords need to be removed */

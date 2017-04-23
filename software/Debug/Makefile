@@ -37,7 +37,12 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../PSU_CV_CC.c
+../adc.c \
+../i2c.c \
+../ina219.c \
+../main.c \
+../mcp4933.c \
+../uart.c
 
 
 PREPROCESSING_SRCS += 
@@ -47,16 +52,36 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-PSU_CV_CC.o
+adc.o \
+i2c.o \
+ina219.o \
+main.o \
+mcp4933.o \
+uart.o
 
 OBJS_AS_ARGS +=  \
-PSU_CV_CC.o
+adc.o \
+i2c.o \
+ina219.o \
+main.o \
+mcp4933.o \
+uart.o
 
 C_DEPS +=  \
-PSU_CV_CC.d
+adc.d \
+i2c.d \
+ina219.d \
+main.d \
+mcp4933.d \
+uart.d
 
 C_DEPS_AS_ARGS +=  \
-PSU_CV_CC.d
+adc.d \
+i2c.d \
+ina219.d \
+main.d \
+mcp4933.d \
+uart.d
 
 OUTPUT_FILE_PATH +=PSU_CV_CC.elf
 
@@ -75,10 +100,20 @@ LINKER_SCRIPT_DEP+=
 
 
 
+
+
+
+
+
+
+
+
+
+
 ./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)D:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)D:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DF_CPU=16000000UL  -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 

@@ -6,14 +6,11 @@
 * \m/
 */
 
-#include adc.h
+#include <avr/io.h>
+#include "adc.h"
 
-/*!
-* @brief Read from ADC pin x
-* @param    adcx specifies ADC pin number
-* @return   measured value
-*/
-uint8_t adcRead(uint8_t adcx)
+// Read from ADCs pin adcx, returns measured value
+uint16_t adcRead(uint8_t adcx)
 {
     // Select ADC pin
     ADMUX &= 0xF0;
@@ -26,3 +23,5 @@ uint8_t adcRead(uint8_t adcx)
     //TODO:: check if "ADC" instead of merging 2 8bit registers ADCL and ADCH
     return ADC;
 }
+
+// TODO:: create a function that reads adc with debouncing
