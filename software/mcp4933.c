@@ -6,7 +6,8 @@
 * \m/
 */
 
-#include mcp4933.h
+#include <avr/io.h>
+#include "mcp4933.h"
 
 /*!
 * @brief A description of function

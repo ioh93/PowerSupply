@@ -2,5 +2,15 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-PSU_CV_CC.c
+adc.c
+
+i2c.c
+
+ina219.c
+
+main.c
+
+mcp4933.c
+
+uart.c
 

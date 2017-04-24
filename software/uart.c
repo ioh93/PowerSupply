@@ -6,15 +6,11 @@
 * \m/
 */
 
-#include uart.h
+#include <avr/io.h>
+#include "uart.h"
 
-/*!
-* @brief UART initialisation
-* @param[in] ubrr Value to set in UBRRn register, that determines baud rate.
-*                 Macro defined in uart.h
-* @return null
-*/
-void uartInit(uint8_t ubrr)
+// UART initialisation
+void uartInit(uint16_t ubrr)
 {
     // Set UART baudrate
     UBRR0H = (uint8_t)(ubrr >> 8);
@@ -25,27 +21,20 @@ void uartInit(uint8_t ubrr)
     UCSR0C = (1 << USBS0) | (3 << UCSZ00);
 }
 
-/*!
-* @brief UART basic transmit function
-* @param[in] data Data to be transmitted
-* @return null
-*/
+// Send one byte
 void uartTransmit(uint8_t data)
 {
-    // Wait for empty transmit buffer
-    while ( !(UCSRnA & (1 << UDREn)));
+    // Wait for empty transmit
+    while ( !(UCSR0A & (1 << UDRE0)));
     // Put data into buffer, sends the data
-    UDRn = data;
+    UDR0 = data;
 }
 
-/*!
-* @brief UART basic recieve function
-* @return uint8_t
-*/
+// Receive one byte
 uint8_t uartReceive(void)
 {
     // Wait for data to be received
-    while ( !(UCSRnA & (1 << RXCn)));
+    while ( !(UCSR0A & (1 << RXC0)));
     // Get and return received data from buffer
-    return UDRn;
+    return UDR0;
 }
